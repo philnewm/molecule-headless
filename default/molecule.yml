@@ -1,0 +1,103 @@
+---
+
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+    type: virtualbox
+lint: |
+  set -e
+  yamllint
+  ansible-lint
+platforms:
+  - name: Alma9
+    box: almalinux/9
+    box_version: "9.5.20241203"
+    memory: 4096
+    cpus: 2
+    provider_options:
+      gui: true
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: "static"
+        ip: "192.168.56.10"
+    provider_raw_config_args:
+      - "customize ['modifyvm', :id, '--uartmode1', 'disconnected']"
+      - "customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']"
+      - "customize ['modifyvm', :id, '--vram', '256']"
+      - "customize ['modifyvm', :id, '--accelerate-3d', 'off']"
+      - "customize ['modifyvm', :id, '--clipboard-mode', 'bidirectional']"
+      - "customize ['modifyvm', :id, '--draganddrop', 'bidirectional']"
+      - "customize ['storagectl', :id, '--name', 'SATA Controller', '--hostiocache', 'on']"
+    groups:
+      - client
+  - name: Ubuntu2204
+    box: ubuntu/jammy64
+    version: "20241002.0.0"
+    memory: 4096
+    cpus: 2
+    provider_options:
+      gui: true
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: "static"
+        ip: "192.168.56.20"
+    provider_raw_config_args:
+      - "customize ['modifyvm', :id, '--uartmode1', 'disconnected']"
+      - "customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']"
+      - "customize ['modifyvm', :id, '--vram', '256']"
+      - "customize ['modifyvm', :id, '--accelerate-3d', 'off']"
+      - "customize ['modifyvm', :id, '--clipboard-mode', 'bidirectional']"
+      - "customize ['modifyvm', :id, '--draganddrop', 'bidirectional']"
+      - "customize ['storagectl', :id, '--name', 'SATA Controller', '--hostiocache', 'on']"
+    groups:
+      - client
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_DIFF_ALWAYS: false
+    ROLE_NAME: "{{ lookup('env', 'ROLE_NAME') | default('default_role') }}"
+  playbooks:
+    create: create.yml
+    prepare: prepare.yml
+    converge: converge.yml
+    side_effect: side_effect.yml
+    verify: verify.yml
+    cleanup: cleanup.yml
+  inventory:
+    group_vars:
+      all:
+        ansible_python_interpreter: /usr/bin/python3
+  config_options:
+    defaults:
+      diff: True
+      gathering: smart
+      fact_caching_timeout: 3600
+      fact_caching: jsonfile
+      fact_caching_connection: /tmp/ansible_fact_cache
+      stdout_callback: debug
+      callbacks_enabled: ansible.posix.profile_tasks
+    connection:
+      pipelining: true
+    env:
+      ANSIBLE_FORCE_COLOR: "true"
+verifier:
+  name: ansible
+scenario:
+  test_sequence:
+      - dependency
+      - syntax
+      - create
+      - prepare
+      - converge
+      - idempotence
+      - side_effect
+      - verify
+      - cleanup
+      - destroy
+
+...
