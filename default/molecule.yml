@@ -31,7 +31,6 @@ platforms:
       - "customize ['modifyvm', :id, '--accelerate-3d', 'off']"
       - "customize ['modifyvm', :id, '--clipboard-mode', 'bidirectional']"
       - "customize ['modifyvm', :id, '--draganddrop', 'bidirectional']"
-      - "customize ['storagectl', :id, '--name', 'SATA Controller', '--hostiocache', 'on']"
     groups:
       - client
   - name: Ubuntu2204
@@ -53,7 +52,6 @@ platforms:
       - "customize ['modifyvm', :id, '--accelerate-3d', 'off']"
       - "customize ['modifyvm', :id, '--clipboard-mode', 'bidirectional']"
       - "customize ['modifyvm', :id, '--draganddrop', 'bidirectional']"
-      - "customize ['storagectl', :id, '--name', 'SATA Controller', '--hostiocache', 'on']"
     groups:
       - client
 provisioner:

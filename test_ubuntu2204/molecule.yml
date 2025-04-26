@@ -27,7 +27,6 @@ platforms:
       - "customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']"
       - "customize ['modifyvm', :id, '--vram', '256']"
       - "customize ['modifyvm', :id, '--accelerate-3d', 'off']"
-      - "customize ['modifyvm', :id, '--clipboard-mode', 'bidirectional']"
     groups:
       - client
 provisioner:
