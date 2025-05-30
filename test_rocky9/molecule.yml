@@ -15,7 +15,7 @@ platforms:
   - name: Rocky9
     box: rockylinux/9
     box_version: "5.0.0"
-    memory: 4096
+    memory: 5120
     cpus: 2
     interfaces:
       - auto_config: true

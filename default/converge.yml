@@ -1,13 +1,15 @@
 ---
 
-- name: Create and configure ansible-firefox
+- name: Create and configure ansible-role
   hosts: client
+  become: true
 
   # TODO local testing only
   # debugger: on_failed
 
   tasks:
     - name: Read meta/main.yml from the role directory
+      become: false
       ansible.builtin.slurp:
         src: "../../meta/main.yml"
       register: role_meta_file

@@ -15,7 +15,7 @@ platforms:
   - name: CentosStream9
     box: centos/stream9
     box_version: "20250414.0"
-    memory: 4096
+    memory: 5120
     cpus: 2
     interfaces:
       - auto_config: true

@@ -15,7 +15,7 @@ platforms:
   - name: Alma9
     box: almalinux/9
     box_version: "9.5.20241203"
-    memory: 4096
+    memory: 5120
     cpus: 2
     interfaces:
       - auto_config: true
@@ -42,6 +42,7 @@ provisioner:
     cleanup: ../default/cleanup.yml        
   config_options:
     defaults:
+      interpreter_python: "/usr/bin/python3.9"  # TODO better set per host
       diff: True
       gathering: smart
       fact_caching_timeout: 3600

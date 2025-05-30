@@ -15,7 +15,7 @@ platforms:
   - name: Alma9
     box: almalinux/9
     box_version: "9.5.20241203"
-    memory: 4096
+    memory: 5120
     cpus: 2
     provider_options:
       gui: true
@@ -36,7 +36,7 @@ platforms:
   - name: Ubuntu2204
     box: ubuntu/jammy64
     version: "20241002.0.0"
-    memory: 4096
+    memory: 5120
     cpus: 2
     provider_options:
       gui: true
