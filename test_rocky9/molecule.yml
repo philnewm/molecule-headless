@@ -22,11 +22,6 @@ platforms:
         network_name: private_network
         type: "static"
         ip: "192.168.56.10"
-    provider_raw_config_args:
-      - "customize ['modifyvm', :id, '--uartmode1', 'disconnected']"
-      - "customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']"
-      - "customize ['modifyvm', :id, '--vram', '256']"
-      - "customize ['modifyvm', :id, '--accelerate-3d', 'off']"
     groups:
       - client
 provisioner:
