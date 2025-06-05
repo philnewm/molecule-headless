@@ -2,6 +2,7 @@
 
 - name: Clean Up
   hosts: client
+  become: true
 
   pre_tasks:
     - name: Gather package facts
@@ -10,6 +11,7 @@
   tasks:
     # TODO check if VM even exists
     - name: Read meta/main.yml from the role directory
+      become: false
       ansible.builtin.slurp:
         src: "../../meta/main.yml"
       register: role_meta_file
