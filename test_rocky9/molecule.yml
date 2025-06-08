@@ -14,7 +14,7 @@ lint: |
 platforms:
   - name: Rocky9
     box: rockylinux/9
-    box_version: "5.0.0"
+    box_version: "6.0.0"
     memory: 5120
     cpus: 2
     interfaces:
