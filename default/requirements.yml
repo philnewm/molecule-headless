@@ -1,7 +1,5 @@
 ---
 
-# Required Ansible collections and roles
-
 collections:
   - ansible.posix
 
