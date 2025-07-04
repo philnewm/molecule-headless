@@ -5,16 +5,15 @@ dependency:
 driver:
   name: vagrant
   provider:
-    name: virtualbox
-    type: virtualbox
+    name: libvirt
 lint: |
   set -e
   yamllint
   ansible-lint
 platforms:
-  - name: Rocky9
-    box: rockylinux/9
-    box_version: "6.0.0"
+  - name: CentosStream9
+    box: centos/stream9
+    # box_version: "20250520.0"
     memory: 5120
     cpus: 2
     interfaces:

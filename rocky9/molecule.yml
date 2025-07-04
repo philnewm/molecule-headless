@@ -5,16 +5,15 @@ dependency:
 driver:
   name: vagrant
   provider:
-    name: virtualbox
-    type: virtualbox
+    name: libvirt
 lint: |
   set -e
   yamllint
   ansible-lint
 platforms:
-  - name: Alma9
-    box: almalinux/9
-    box_version: "9.5.20241203"
+  - name: Rocky9
+    box: rockylinux/9
+    box_version: "6.0.0"
     memory: 5120
     cpus: 2
     interfaces:
@@ -34,10 +33,9 @@ provisioner:
     converge: ../default/converge.yml
     side_effect: ../default/side_effect.yml
     verify: ../default/verify.yml
-    cleanup: ../default/cleanup.yml        
+    cleanup: ../default/cleanup.yml
   config_options:
     defaults:
-      interpreter_python: "/usr/bin/python3.9"  # TODO better set per host
       diff: True
       gathering: smart
       fact_caching_timeout: 3600
@@ -53,15 +51,15 @@ verifier:
   name: ansible
 scenario:
   test_sequence:
-    - dependency
-    - syntax
-    - create
-    - prepare
-    - converge
-    - idempotence
-    - side_effect
-    - verify
-    - cleanup
-    - destroy
+      - dependency
+      - syntax
+      - create
+      - prepare
+      - converge
+      - idempotence
+      - side_effect
+      - verify
+      - cleanup
+      - destroy
 
 ...
