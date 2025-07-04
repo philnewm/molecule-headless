@@ -12,8 +12,8 @@ lint: |
   ansible-lint
 platforms:
   - name: Ubuntu2204
-    box: ubuntu/jammy64
-    version: "20241002.0.0"
+    box: generic/ubuntu2204
+    version: "4.3.12"
     memory: 5120
     cpus: 2
     interfaces:
@@ -21,8 +21,6 @@ platforms:
         network_name: private_network
         type: "static"
         ip: "192.168.56.10"
-    provider_raw_config_args:
-      - "customize ['modifyvm', :id, '--uartmode1', 'disconnected']"
     groups:
       - client
 provisioner:

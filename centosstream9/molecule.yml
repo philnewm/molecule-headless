@@ -13,7 +13,7 @@ lint: |
 platforms:
   - name: CentosStream9
     box: centos/stream9
-    # box_version: "20250520.0"
+    box_version: "220250617.0"
     memory: 5120
     cpus: 2
     interfaces:
