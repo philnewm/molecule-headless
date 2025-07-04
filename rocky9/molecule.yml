@@ -5,7 +5,8 @@ dependency:
 driver:
   name: vagrant
   provider:
-    name: libvirt
+    name: virtualbox
+    type: virtualbox
 lint: |
   set -e
   yamllint
