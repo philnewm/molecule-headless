@@ -13,8 +13,8 @@ lint: |
   ansible-lint
 platforms:
   - name: Alma9
-    box: almalinux/9
-    box_version: "9.5.20241203"
+    box: philnewm/alma9.4-gnome
+    box_version: "0.1.11"
     memory: 5120
     cpus: 2
     provider_options:
@@ -34,8 +34,8 @@ platforms:
     groups:
       - client
   - name: Ubuntu2204
-    box: ubuntu/jammy64
-    version: "20241002.0.0"
+    box: philnewm/ubuntu2204-gnome
+    version: "0.1.12"
     memory: 5120
     cpus: 2
     provider_options:
