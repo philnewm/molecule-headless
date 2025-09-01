@@ -19,4 +19,11 @@
   changed_when: not result.rc
   delegate_to: localhost
 
+- name: Remove obsolete firmware
+  become: true
+  ansiblebuiltin.package:
+    name: "linux-firmware"
+    state: "absent"
+    autoremove: true
+
 ...
