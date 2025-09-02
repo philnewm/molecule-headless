@@ -21,7 +21,7 @@
 
 - name: Remove obsolete firmware
   become: true
-  ansiblebuiltin.package:
+  ansible.builtin.package:
     name: "linux-firmware"
     state: "absent"
     autoremove: true
