@@ -26,4 +26,26 @@
     state: "absent"
     autoremove: true
 
+- name: Disable auto updates on ubuntu
+  when: ansible_distribution == "Ubuntu"
+  block:
+    - name: Disable unattended upgrades
+      become: true
+      ansible.builtin.systemd_service:
+        name: unattended-upgrades.service
+        state: stopped
+        enabled: false
+
+    - name: Disable apt-daily services
+      become: true
+      ansible.builtin.systemd_service:
+        name: "{{ item }}"
+        state: stopped
+        enabled: false
+      loop:
+        - apt-daily.service
+        - apt-daily.timer
+        - apt-daily-upgrade.service
+        - apt-daily-upgrade.timer
+
 ...
