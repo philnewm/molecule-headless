@@ -6,17 +6,16 @@ driver:
   name: vagrant
   provider:
     name: virtualbox
-    type: virtualbox
 lint: |
   set -e
   yamllint
   ansible-lint
 platforms:
-  - name: CentosStream9
+  - name: centosstream9
     box: centos/stream9
-    # box_version: "220250617.0"
-    memory: 5120
-    cpus: 2
+    box_version: "20260331.0"
+    memory: 4096
+    cpus: 4
     interfaces:
       - auto_config: true
         network_name: private_network
@@ -28,6 +27,9 @@ provisioner:
   name: ansible
   env:
     ANSIBLE_DIFF_ALWAYS: false
+    ANSIBLE_ROLES_PATH: ~/.cache/molecule/skeleton-ansible-role/${MOLECULE_SCENARIO_NAME}/roles:${MOLECULE_PROJECT_DIRECTORY}/..:~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
+    ANSIBLE_LIBRARY: "${VIRTUAL_ENV}/lib/python3.12/site-packages/molecule_plugins/vagrant/modules:${VIRTUAL_ENV}/lib/${basepython}/site-packages/molecule_plugins/vagrant/modules:${HOME}/.ansible/plugins/modules:/usr/share/ansible/plugins/modules"
+    ROLE_NAME: "{{ lookup('env', 'ROLE_NAME') | default('default_role') }}"
   playbooks:
     create: ../default/create.yml
     prepare: ../default/prepare.yml
@@ -37,6 +39,7 @@ provisioner:
     cleanup: ../default/cleanup.yml
   config_options:
     defaults:
+      interpreter_python: /usr/bin/python3
       diff: True
       gathering: smart
       fact_caching_timeout: 3600
