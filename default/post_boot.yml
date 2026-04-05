@@ -9,7 +9,7 @@
 
 - name: Run systemd-analyze plot
   ansible.builtin.shell:
-    cmd: systemd-analyze plot > /tmp/boot_analysis_{{ ansible_distribution }}_$(date +%Y%m%d%H%M%S).svg
+    cmd: systemd-analyze plot > /tmp/boot_analysis_{{ ansible_facts.distribution }}_$(date +%Y%m%d%H%M%S).svg
   register: command_result
   changed_when: command_result.rc == 0
 

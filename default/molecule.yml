@@ -6,58 +6,43 @@ driver:
   name: vagrant
   provider:
     name: virtualbox
-    type: virtualbox
 lint: |
   set -e
   yamllint
   ansible-lint
 platforms:
-  - name: Alma9
-    box: philnewm/alma9.4-gnome
-    box_version: "0.1.11"
-    memory: 5120
-    cpus: 2
-    provider_options:
-      gui: true
+  - name: alma9
+    box: almalinux/9
+    box_version: "9.7.20260318"
+    memory: 4096
+    cpus: 4
     interfaces:
       - auto_config: true
         network_name: private_network
         type: "static"
         ip: "192.168.56.10"
     provider_raw_config_args:
-      - "customize ['modifyvm', :id, '--uartmode1', 'disconnected']"
-      - "customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']"
-      - "customize ['modifyvm', :id, '--vram', '256']"
-      - "customize ['modifyvm', :id, '--accelerate-3d', 'off']"
       - "customize ['modifyvm', :id, '--clipboard-mode', 'bidirectional']"
-      - "customize ['modifyvm', :id, '--draganddrop', 'bidirectional']"
     groups:
       - client
-  - name: Ubuntu2204
-    box: philnewm/ubuntu2204-gnome
-    version: "0.1.12"
-    memory: 5120
-    cpus: 2
-    provider_options:
-      gui: true
+  - name: debian13
+    box: cloud-image/debian-13
+    version: "20260327.2429.0"
+    memory: 4096
+    cpus: 4
     interfaces:
       - auto_config: true
         network_name: private_network
         type: "static"
         ip: "192.168.56.20"
-    provider_raw_config_args:
-      - "customize ['modifyvm', :id, '--uartmode1', 'disconnected']"
-      - "customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']"
-      - "customize ['modifyvm', :id, '--vram', '256']"
-      - "customize ['modifyvm', :id, '--accelerate-3d', 'off']"
-      - "customize ['modifyvm', :id, '--clipboard-mode', 'bidirectional']"
-      - "customize ['modifyvm', :id, '--draganddrop', 'bidirectional']"
     groups:
       - client
 provisioner:
   name: ansible
   env:
     ANSIBLE_DIFF_ALWAYS: false
+    ANSIBLE_ROLES_PATH: ~/.cache/molecule/skeleton-ansible-role/${MOLECULE_SCENARIO_NAME}/roles:${MOLECULE_PROJECT_DIRECTORY}/..:~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
+    ANSIBLE_LIBRARY: "${VIRTUAL_ENV}/lib/python3.12/site-packages/molecule_plugins/vagrant/modules:${VIRTUAL_ENV}/lib/${basepython}/site-packages/molecule_plugins/vagrant/modules:${HOME}/.ansible/plugins/modules:/usr/share/ansible/plugins/modules"
     ROLE_NAME: "{{ lookup('env', 'ROLE_NAME') | default('default_role') }}"
   playbooks:
     create: create.yml
