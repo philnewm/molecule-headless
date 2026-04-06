@@ -42,7 +42,7 @@ provisioner:
   env:
     ANSIBLE_DIFF_ALWAYS: false
     ANSIBLE_ROLES_PATH: ~/.cache/molecule/skeleton-ansible-role/${MOLECULE_SCENARIO_NAME}/roles:${MOLECULE_PROJECT_DIRECTORY}/..:~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
-    ANSIBLE_LIBRARY: "${VIRTUAL_ENV}/lib/python3.12/site-packages/molecule_plugins/vagrant/modules:${VIRTUAL_ENV}/lib/${basepython}/site-packages/molecule_plugins/vagrant/modules:${HOME}/.ansible/plugins/modules:/usr/share/ansible/plugins/modules"
+    # ANSIBLE_LIBRARY: "${VIRTUAL_ENV}/lib/python3.12/site-packages/molecule_plugins/vagrant/modules:${VIRTUAL_ENV}/lib/${basepython}/site-packages/molecule_plugins/vagrant/modules:${HOME}/.ansible/plugins/modules:/usr/share/ansible/plugins/modules"
     ROLE_NAME: "{{ lookup('env', 'ROLE_NAME') | default('default_role') }}"
   playbooks:
     create: create.yml
