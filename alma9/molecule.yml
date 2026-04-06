@@ -12,7 +12,7 @@ lint: |
   ansible-lint
 platforms:
   - name: debian13
-    box: cloud-image/debian-13
+    box: almalinux/9
     box_version: "9.7.20260318"
     memory: 4096
     cpus: 4
