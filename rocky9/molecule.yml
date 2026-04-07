@@ -14,7 +14,6 @@ platforms:
   - name: rocky9
     box: rockylinux/9
     box_url: "https://dl.rockylinux.org/pub/rocky/9.7/images/x86_64/Rocky-9-Vagrant-Vbox-9.7-20251123.2.x86_64.box"
-    # box_version: "6.0.0"
     memory: 4096
     cpus: 4
     interfaces:

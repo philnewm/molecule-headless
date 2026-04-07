@@ -11,7 +11,7 @@ lint: |
   yamllint
   ansible-lint
 platforms:
-  - name: debian13
+  - name: almalinux9
     box: almalinux/9
     box_version: "9.7.20260318"
     memory: 4096
@@ -35,7 +35,7 @@ provisioner:
     converge: ../default/converge.yml
     side_effect: ../default/side_effect.yml
     verify: ../default/verify.yml
-    cleanup: ../default/cleanup.yml        
+    cleanup: ../default/cleanup.yml
   config_options:
     defaults:
       interpreter_python: /usr/bin/python3
