@@ -18,7 +18,7 @@ lint: |
 platforms:
   - name: rocky9
     box: rockylinux/9
-    box_url: "https://dl.rockylinux.org/pub/rocky/9.6/images/x86_64/Rocky-9-Vagrant-Vbox.latest.x86_64.box"
+    box_url: "https://dl.rockylinux.org/pub/rocky/9.8/images/x86_64/Rocky-9-Vagrant-Vbox.latest.x86_64.vagrant.virtualbox.box"
     memory: 4096
     cpus: 4
     interfaces:
