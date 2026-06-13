@@ -18,7 +18,7 @@ lint: |
 platforms:
   - name: ubuntu2404
     box: cloud-image/ubuntu-24.04
-    version: "20260323.0.0"
+    version: "20260518.0.0"  # 20260323.0.0
     memory: 4096
     cpus: 4
     interfaces:
