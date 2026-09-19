@@ -18,7 +18,8 @@ lint: |
 platforms:
   - name: centosstream9
     box: centos/stream9
-    box_version: "20260513.0"
+    box_url: "https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-Vagrant-VirtualBox-9-latest.x86_64.vagrant-virtualbox.box"
+    # box_version: "20260513.0"
     memory: 4096
     cpus: 4
     interfaces:
