@@ -18,7 +18,7 @@ lint: |
 platforms:
   - name: almalinux9
     box: almalinux/9
-    box_version: "9.7.20260318"
+    box_version: "9.8.20260907"
     memory: 4096
     cpus: 4
     interfaces:

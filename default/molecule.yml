@@ -10,7 +10,7 @@ dependency:
 driver:
   name: vagrant
   provider:
-    name: virtualbox
+    name: libvirt
 lint: |
   set -e
   yamllint
@@ -18,7 +18,7 @@ lint: |
 platforms:
   - name: alma9
     box: almalinux/9
-    box_version: "9.7.20260318"
+    box_version: "9.8.20260907"
     memory: 4096
     cpus: 4
     interfaces:
@@ -26,13 +26,11 @@ platforms:
         network_name: private_network
         type: "static"
         ip: "192.168.56.10"
-    provider_raw_config_args:
-      - "customize ['modifyvm', :id, '--clipboard-mode', 'bidirectional']"
     groups:
       - client
   - name: debian13
     box: cloud-image/debian-13
-    version: "20260327.2429.0"
+    version: "20260914.2601.0"
     memory: 4096
     cpus: 4
     interfaces:
@@ -47,7 +45,7 @@ provisioner:
   env:
     ANSIBLE_DIFF_ALWAYS: false
     ANSIBLE_ROLES_PATH: ~/.cache/molecule/skeleton-ansible-role/${MOLECULE_SCENARIO_NAME}/roles:${MOLECULE_PROJECT_DIRECTORY}/..:~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles
-    ANSIBLE_LIBRARY: "${VIRTUAL_ENV}/lib/python3.12/site-packages/molecule_plugins/vagrant/modules:${VIRTUAL_ENV}/lib/${basepython}/site-packages/molecule_plugins/vagrant/modules:${HOME}/.ansible/plugins/modules:/usr/share/ansible/plugins/modules"
+    ANSIBLE_LIBRARY: "${VIRTUAL_ENV}/lib/python3.13/site-packages/molecule_plugins/vagrant/modules:${VIRTUAL_ENV}/lib/${basepython}/site-packages/molecule_plugins/vagrant/modules:${HOME}/.ansible/plugins/modules:/usr/share/ansible/plugins/modules"
     ROLE_NAME: "{{ lookup('env', 'ROLE_NAME') | default('default_role') }}"
   playbooks:
     create: create.yml
@@ -62,7 +60,7 @@ provisioner:
         ansible_python_interpreter: /usr/bin/python3
   config_options:
     defaults:
-      diff: True
+      diff: true
       gathering: smart
       fact_caching_timeout: 3600
       fact_caching: jsonfile
@@ -77,15 +75,15 @@ verifier:
   name: ansible
 scenario:
   test_sequence:
-      - dependency
-      - syntax
-      - create
-      - prepare
-      - converge
-      - idempotence
-      - side_effect
-      - verify
-      - cleanup
-      - destroy
+    - dependency
+    - syntax
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - side_effect
+    - verify
+    - cleanup
+    - destroy
 
 ...

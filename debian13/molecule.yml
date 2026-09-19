@@ -18,7 +18,7 @@ lint: |
 platforms:
   - name: debian13
     box: cloud-image/debian-13
-    version: "20260327.2429.0"
+    version: "20260914.2601.0"
     memory: 4096
     cpus: 4
     interfaces:
