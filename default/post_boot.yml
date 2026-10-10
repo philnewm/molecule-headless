@@ -7,6 +7,16 @@
     mode: "0744"
   delegate_to: localhost
 
+- name: Wait for systemd to finish booting
+  ansible.builtin.command:
+    cmd: systemctl is-system-running
+  register: systemd_status
+  changed_when: false
+  failed_when: false
+  until: systemd_status.stdout in ['running', 'degraded']
+  retries: 30
+  delay: 5
+
 - name: Run systemd-analyze plot
   ansible.builtin.shell:
     cmd: systemd-analyze plot > /tmp/boot_analysis_{{ ansible_facts.distribution }}_$(date +%Y%m%d%H%M%S).svg
