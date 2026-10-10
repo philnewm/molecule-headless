@@ -7,13 +7,15 @@
   # debugger: on_failed
 
   pre_tasks:
-    - name: Include role-specific environment preparation
-      with_first_found:
-        - files:
-            - "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/tasks/prepare_env.yml"
-          skip: true
-      ansible.builtin.include_tasks:
-        file: "{{ item }}"
+    - name: Include role
+      when: >-
+        lookup(
+          'ansible.builtin.fileglob',
+          lookup('env', 'MOLECULE_PROJECT_DIRECTORY') ~ '/tasks/prepare_env.yml'
+        ) | length > 0
+      ansible.builtin.include_role:
+        name: "ansible-{{ role_meta.galaxy_info.role_name | replace('_', '-') }}"
+        tasks_from: prepare_env.yml
 
   tasks:
     - name: Read meta/main.yml from the role directory
@@ -35,6 +37,11 @@
 
   post_tasks:
     - name: Include role
+      when: >-
+        lookup(
+          'ansible.builtin.fileglob',
+          lookup('env', 'MOLECULE_PROJECT_DIRECTORY') ~ '/tasks/post_tasks.yml'
+        ) | length > 0
       ansible.builtin.include_role:
         name: "ansible-{{ role_meta.galaxy_info.role_name | replace('_', '-') }}"
         tasks_from: post_tasks.yml
