@@ -6,7 +6,7 @@
   no_log: "{{ molecule_no_log }}"
   tasks:
     - name: Create molecule instance(s) # noqa fqcn[action]
-      vagrant:
+      community.vagrant.vagrant:
         instances: "{{ molecule_yml.platforms }}"
         default_box: "{{ molecule_yml.driver.default_box | default('generic/alpine316') }}"
         provider_name: "{{ molecule_yml.driver.provider.name | default(omit, true) }}"
@@ -40,7 +40,7 @@
           register: instance_config_dict
 
         # - name: Create initial snapshot per instance
-        #   when: molecule_yml.driver.snapshot is defined 
+        #   when: molecule_yml.driver.snapshot is defined
         #   loop: "{{ instance_config_dict.results }}"
         #   ansible.builtin.command:
         #     cmd: "vagrant snapshot save {{ item.item.Host }} {{ molecule_yml.driver.snapshot}}"
